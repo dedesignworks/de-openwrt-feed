@@ -15,7 +15,7 @@ include $(INCLUDE_DIR)/package.mk
 include $(INCLUDE_DIR)/cmake.mk
 
 define Package/aws-sdk
-	SECTION:=libs
+	SECTION:=aws-sdk
 	CATEGORY:=Libraries
 	DEPENDS:=libopenssl
 	TITLE:=Library for aws-sdk
@@ -35,9 +35,29 @@ CMAKE_OPTIONS+= \
 
 define Package/aws-sdk/install
 	$(INSTALL_DIR) $(1)/usr/lib
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/lib*.so* $(1)/usr/lib/
-	$(CP) $(PKG_BUILD_DIR)/build/lib/libtinycbor.so $(1)/usr/lib/
-	$(CP) $(PKG_BUILD_DIR)/build/lib/libmbedtls.so $(1)/usr/lib/
+	$(CP) $(PKG_BUILD_DIR)/build/lib/libaws_iot_backoff_algorithm.so* $(1)/usr/lib/
+	$(CP) $(PKG_BUILD_DIR)/build/lib/libaws_iot_defender.so* $(1)/usr/lib/
+	$(CP) $(PKG_BUILD_DIR)/build/lib/libaws_iot_http.so* $(1)/usr/lib/
+	$(CP) $(PKG_BUILD_DIR)/build/lib/libaws_iot_jobs.so* $(1)/usr/lib/
+	$(CP) $(PKG_BUILD_DIR)/build/lib/libaws_iot_json.so* $(1)/usr/lib/
+	$(CP) $(PKG_BUILD_DIR)/build/lib/libaws_iot_mqtt.so* $(1)/usr/lib/
+	$(CP) $(PKG_BUILD_DIR)/build/lib/libaws_iot_ota_http.so* $(1)/usr/lib/
+	$(CP) $(PKG_BUILD_DIR)/build/lib/libaws_iot_ota_mqtt.so* $(1)/usr/lib/
+	$(CP) $(PKG_BUILD_DIR)/build/lib/libaws_iot_ota.so* $(1)/usr/lib/
+	$(CP) $(PKG_BUILD_DIR)/build/lib/libaws_iot_pkcs.so* $(1)/usr/lib/
+	$(CP) $(PKG_BUILD_DIR)/build/lib/libclock_posix.so* $(1)/usr/lib/
+	$(CP) $(PKG_BUILD_DIR)/build/lib/libopenssl_posix.so* $(1)/usr/lib/
+	$(CP) $(PKG_BUILD_DIR)/build/lib/libplaintext_posix.so* $(1)/usr/lib/
+	$(CP) $(PKG_BUILD_DIR)/build/lib/libsockets_posix.so* $(1)/usr/lib/
+	$(CP) $(PKG_BUILD_DIR)/build/lib/libtinycbor.so* $(1)/usr/lib/
+	$(CP) $(PKG_BUILD_DIR)/build/lib/libmbedtls.so* $(1)/usr/lib/
+	$(CP) $(PKG_BUILD_DIR)/build/lib/libtransport_mbedtls_pkcs11_posix.so* $(1)/usr/lib/
+endef
+
+define Build/InstallDev
+  	$(INSTALL_DIR) $(1)/usr/lib
+	$(CP) $(PKG_BUILD_DIR)/build/lib/lib*.so* $(1)/usr/lib/
+	$(CP) $(PKG_INSTALL_DIR)/usr/include/aws $(1)/usr/include/
 endef
 
 $(eval $(call BuildPackage,aws-sdk))
