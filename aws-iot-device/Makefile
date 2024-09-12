@@ -5,8 +5,8 @@ PKG_VERSION:=202211.00
 PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL=https://github.com/aws/aws-iot-device-sdk-embedded-C.git
-PKG_SOURCE_VERSION:=18f9653d339b4e98d720a7ca899a5e4947f6de53
+PKG_SOURCE_URL=https://github.com/dedesignworks/aws-iot-device-sdk-embedded-C.git
+PKG_SOURCE_VERSION:=a72bc512930f6fd96cf6752c0460a02a37b8c5ae
 CMAKE_INSTALL:=1
 PKG_INSTALL:=1
 
@@ -28,7 +28,7 @@ endef
 CMAKE_BINARY_SUBDIR:=build
 
 CMAKE_OPTIONS+= \
-	-DINSTALL_PLATFORM_ABSTRACTIONS:bool=OFF \
+	-DINSTALL_PLATFORM_ABSTRACTIONS:bool=ON \
 	-DBUILD_DEMOS:bool=OFF \
 	-DINSTALL_TO_SYSTEM:bool=ON \
 
