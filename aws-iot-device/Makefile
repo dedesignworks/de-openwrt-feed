@@ -6,7 +6,7 @@ PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
 PKG_SOURCE_URL=https://github.com/dedesignworks/aws-iot-device-sdk-embedded-C.git
-PKG_SOURCE_VERSION:=a72bc512930f6fd96cf6752c0460a02a37b8c5ae
+PKG_SOURCE_VERSION:=7f8551bcaa8d811c44473db7755965a5316e3a7d
 CMAKE_INSTALL:=1
 PKG_INSTALL:=1
 
@@ -31,20 +31,18 @@ CMAKE_OPTIONS+= \
 	-DINSTALL_PLATFORM_ABSTRACTIONS:bool=ON \
 	-DBUILD_DEMOS:bool=OFF \
 	-DINSTALL_TO_SYSTEM:bool=ON \
+	-DCMAKE_SKIP_RPATH=OFF \
+	-DCMAKE_INSTALL_RPATH="/usr/lib/aws"
 
 define Package/aws-iot-device/install
-	$(INSTALL_DIR) $(1)/usr/lib
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/lib*.so* $(1)/usr/lib/
-	$(CP) $(CMAKE_BINARY_DIR)/lib/libtinycbor.so $(1)/usr/lib/
-	$(CP) $(CMAKE_BINARY_DIR)/lib/libmbedtls.so $(1)/usr/lib/
+	$(INSTALL_DIR) $(1)/usr/lib/aws
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/aws/lib*.so* $(1)/usr/lib/aws/
 endef
 
 define Build/InstallDev
-	$(INSTALL_DIR) $(1)/usr/lib
+	$(INSTALL_DIR) $(1)/usr/lib/aws
 	$(INSTALL_DIR) $(1)/usr/include
 	$(CP) $(PKG_INSTALL_DIR)/* $(1)/
-	$(CP) $(CMAKE_BINARY_DIR)/lib/libtinycbor.so $(1)/usr/lib/
-	$(CP) $(CMAKE_BINARY_DIR)/lib/libmbedtls.so $(1)/usr/lib/
 endef
 
 $(eval $(call BuildPackage,aws-iot-device))
