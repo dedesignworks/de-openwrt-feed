@@ -35,6 +35,8 @@ define Build/InstallDev
 	$(CP) $(PKG_INSTALL_DIR)/usr/include/* $(1)/usr/include/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/liblvgl.so* $(1)/usr/lib/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/liblvgl_thorvg.so* $(1)/usr/lib/
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/liblvgl_demos.so* $(1)/usr/lib/
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/liblvgl_examples.so* $(1)/usr/lib/
 	$(INSTALL_DATA) $(PKG_BUILD_DIR)/lvgl.pc $(1)/usr/lib/pkgconfig
 endef
 
@@ -42,6 +44,8 @@ define Package/lvgl-lib/install
 	$(INSTALL_DIR) $(1)/usr/lib
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/liblvgl.so* $(1)/usr/lib/
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/liblvgl_thorvg.so* $(1)/usr/lib/
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/liblvgl_demos.so* $(1)/usr/lib/
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/liblvgl_examples.so* $(1)/usr/lib/
 endef
 
 $(eval $(call BuildPackage,lvgl-lib))
