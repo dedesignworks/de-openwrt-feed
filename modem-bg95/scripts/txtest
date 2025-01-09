@@ -1,0 +1,123 @@
+#!/bin/bash
+
+BAND=$1
+CHAN=$2
+POWER=$3
+
+LTEChans=(
+    1 18000 18599 
+    2 18600 19199 
+    3 19200 19949
+    4 19950 20399
+    5 20400 20649
+    8 21450 21799
+    12 23010 23179
+    13 23180 23279
+    18 23850 23999
+    19 24000 24149
+    20 24150 24449
+    25 26040  26689
+    26 26690 27039
+    27 27040 27209
+    28 27210 27659
+    31 27760 27809
+    66 131972 132671
+    71 131122 133471
+    72 133472 133521
+    73 133522 133571
+    85 134002 134181
+)
+chantablelen=${#LTEChans[@]}
+
+# find min max channel number from band #
+min=0
+max=0
+get_chan_range() {
+    loopcnt=$((  ($chantablelen / 3) - 1 ))
+    echo loops:$loopcnt
+    for i in $(seq 0 $loopcnt ) }
+    do
+        echo step $i
+        arridx=$(( $i * 3 ))
+        b=${LTEChans[$arridx]}
+        echo $arridx : $b
+        if [ ${LTEChans[$arridx]} = $BAND ] ; then
+            idx=$(( $arridx + 1 ))
+            min=${LTEChans[$idx]}
+            idx=$(( $arridx + 2 ))
+            max=${LTEChans[$idx]}
+            echo band $BAND channel range $min-$max
+            break
+        fi
+    done
+}
+
+#bandidx=$(( ($BAND - 1) * 2 ))
+
+#echo Band $BAND range: ${LTEChans[$bandidx]} - ${LTEChans[ $(( $bandidx + 1 )) ]}
+
+show_lte_uplink_bands() {
+    echo "LTE uplink bands: 
+ LTE BAND1 18000-18599
+ LTE BAND2 18600-19199
+ LTE BAND3 19200-19949
+ LTE BAND4 19950-20399
+ LTE BAND5 20400-20649
+ LTE BAND8 21450-21799
+ LTE BAND12 23010-23179
+ LTE BAND13 23180-23279
+ LTE BAND18 23850-23999
+ LTE BAND19 24000-24149
+ LTE BAND20 24150-24449
+ LTE BAND25 26040-“26689
+ LTE BAND26 26690-27039 (Supported by LTE-M only)
+ LTE BAND27 27040-27209 (Supported by LTE-M only)
+ LTE BAND28 27210-27659
+ LTE BAND31 27760-27809 (Supported by BG95-M4 only)
+ LTE BAND66 131972-132671
+ LTE BAND71 131122-133471 (Supported by NB-IoT only)
+ LTE BAND72 133472-133521 (Supported by BG95-M4 only)
+ LTE BAND73 133522-133571 (Supported by BG95-M4 only)
+ LTE BAND85 134002-134181"
+}
+
+if [ "$1" = "showbands" ] ; then
+    echo showbands
+    show_lte_uplink_bands
+    exit 0
+fi
+
+
+if [ $# -lt 1 ] ; then
+    echo usage: $0 [LTE band#] [chan] [power 0-100]
+    echo $# args
+    exit 1
+fi
+
+get_chan_range
+if [ $min -eq 0 ] ; then
+    echo invalid band $BAND
+    exit 1
+fi
+
+if [ $# -lt 2 ] ; then
+    echo using min band channel $min
+    CHAN=$min    
+fi
+
+if [ $CHAN -eq 0 ] ; then
+    echo using min band channel $min
+    CHAN=$min    
+fi
+
+if [ $# -lt 3 ] ; then
+    POWER=50
+fi
+
+source ./atutil.sh
+echo LTEBand $BAND Chan $CHAN at ${POWER}% power
+at_command AT+CMEE=2
+at_command AT+QRFTESTMODE=1
+at_command "AT+QRFTEST=\"LTE BAND${BAND}\",${CHAN},\"ON\",${POWER},1"
+
+

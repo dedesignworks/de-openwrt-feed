@@ -1,0 +1,15 @@
+#!/bin/sh
+
+source ./atutil.sh
+
+at_command "AT+QCFGEXT=\"usbnet\""
+at_command "AT+QCFGEXT=\"usbnet\",\"ecm\""
+at_command AT+CGDCONT=2,
+at_command AT+CGDCONT=2,\"IP\",\"hologram\"
+at_command AT+QCFG=\"iotopmode\",0,1
+#at_command AT+QCFG=\"NWSCANMODE\",1,1;+QCFG=\"NWSCANSEQ\",020202,1
+at_command "AT+COPS=0"
+at_command "AT+CEREG=0"
+at_command "AT+CGACT=1,2"
+
+./modem-reset

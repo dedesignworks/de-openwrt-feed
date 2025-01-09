@@ -1,0 +1,5 @@
+#!/bin/sh
+
+source ./atutil.sh
+
+init_modem

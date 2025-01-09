@@ -1,0 +1,45 @@
+#!/bin/sh
+
+LOGFILE="/var/log/bg95log"
+#DEVICE_TTY=/dev/ttyUSB2
+FAILURE=0
+
+source ./atutil.sh
+
+echo -n "DisableEcho: "
+at_command ATE0
+echo -n "Verbose errors: "
+at_command AT+CMEE=2
+
+echo -n "Temperature (pmic,xo,pa): "
+at_command "AT+QTEMP"
+echo -n "Radio Firmware Version: "
+at_command "AT+GMR"
+echo -n "IMEI: "
+at_command AT+GSN
+echo -n "SIMPresent: "
+at_command AT+CPIN?
+echo -n "SIMCCID: "
+at_command AT+QCCID
+echo -n "SIM-InitStatus: (0=initial,1=ready,2=init,3=complete) "
+at_command AT+QINISTAT
+echo -n "SignalStrength: mode,RSSI,refpower,SNR,refquality"
+at_command AT+QCSQ
+echo -n "SignalQuality: rssi,ber"
+at_command "AT+CSQ"
+echo -n "ConnectionStatus: enable, mode(1=connected)"
+at_command "AT+QCSCON?"
+echo "PDP Contexts: "
+at_command "AT+CGDCONT?"
+echo -n "Active Context: "
+at_command AT+CGACT?
+echo -n "Operator Selection: mode(0=man,1=auto),format,operator,nettech: "
+at_command "AT+COPS?"
+echo -n "NetworkInfo: nettech,operator,band,chan: "
+at_command "AT+QNWINFO"
+echo "RegistrationStatus: notify,status,areacode,cellID,nettech,emmtypefail,rejectcause: "
+echo "   status: 0=unreg, 1=registered home, 2=searching, 3=denied, 4=unknown, 5=reg/roaming"
+at_command "AT+CEREG?"
+echo "UE Functionality: fun (0=min,1=full,4=disable tx and rx,5=test mode)
+at_command "AT+CFUN?"
+
