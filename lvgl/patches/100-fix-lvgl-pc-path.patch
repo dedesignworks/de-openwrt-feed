@@ -1,0 +1,13 @@
+diff --git a/lvgl/env_support/cmake/custom.cmake b/lvgl/env_support/cmake/custom.cmake
+index cc2c9630c..349172d34 100644
+--- a/lvgl/env_support/cmake/custom.cmake
++++ b/lvgl/env_support/cmake/custom.cmake
+@@ -137,7 +137,7 @@ configure_file("${LVGL_ROOT_DIR}/lvgl.pc.in" ${CMAKE_BINARY_DIR}/lvgl.pc @ONLY)
+ configure_file("${LVGL_ROOT_DIR}/lv_version.h.in" ${CMAKE_BINARY_DIR}/lv_version.h @ONLY)
+ 
+ install(
+-  FILES "${CMAKE_CURRENT_BINARY_DIR}/lvgl.pc"
++  FILES "${CMAKE_BINARY_DIR}/lvgl.pc"
+   DESTINATION "${LIB_INSTALL_DIR}/pkgconfig/")
+ 
+ # Install library
