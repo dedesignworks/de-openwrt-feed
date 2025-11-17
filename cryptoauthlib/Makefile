@@ -26,16 +26,17 @@ define Package/cryptoauthlib/description
 endef
 
 CMAKE_OPTIONS += \
+	-DATCA_PRINTF=OFF \
 	-DATCA_HAL_I2C=ON \
 	-DATCA_PKCS11=ON \
 	-DATCA_OPENSSL=ON \
-	-DATCA_ATECC508A_SUPPORT=ON \
 	-DATCA_ATECC608_SUPPORT=ON \
 	-DATCA_BUILD_SHARED_LIBS=ON \
 	-DATCA_TNGTLS_SUPPORT=ON \
-	-DATCA_TNGLORA_SUPPORT=ON \
-	-DATCA_TFLEX_SUPPORT=ON \
-	-DATCA_USE_ATCAB_FUNCTIONS=ON
+	-DATCA_USE_ATCAB_FUNCTIONS=ON \
+	-DPKCS11_DEBUG_ENABLE=OFF \
+	-DDEFAULT_CONF_PATH=/etc/cryptoauthlib \
+	-DDEFAULT_STORE_PATH=/usr/share/cryptoauthlib
 
 define Build/InstallDev
 	$(INSTALL_DIR) $(1)/usr/include
@@ -48,9 +49,9 @@ define Package/cryptoauthlib/install
 	$(INSTALL_DIR) $(1)/usr/lib
 	$(CP) $(PKG_INSTALL_DIR)/usr/lib/libcryptoauth.so* $(1)/usr/lib/
 	$(INSTALL_DIR) $(1)/etc/cryptoauthlib
-	$(CP) $(PKG_INSTALL_DIR)/$(PKG_BUILD_DIR)/etc/cryptoauthlib/* $(1)/etc/cryptoauthlib/
+	$(CP) $(PKG_INSTALL_DIR)/etc/cryptoauthlib/* $(1)/etc/cryptoauthlib/
 	${INSTALL_DIR} $(1)/usr/share/cryptoauthlib
-	${INSTALL_DATA} $(PKG_INSTALL_DIR)/$(PKG_BUILD_DIR)/var/lib/cryptoauthlib/* $(1)/usr/share/cryptoauthlib/
+	${INSTALL_DATA} $(PKG_INSTALL_DIR)/usr/share/cryptoauthlib/* $(1)/usr/share/cryptoauthlib/
 endef
 
 $(eval $(call BuildPackage,cryptoauthlib))
