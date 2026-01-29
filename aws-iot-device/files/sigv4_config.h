@@ -20,19 +20,35 @@
 
 /* Only define logging macros if they haven't been defined elsewhere */
 #ifndef LogError
-    #define LogError(message)   printf message
+    #if LIBRARY_LOG_LEVEL >= LOG_ERROR
+        #define LogError(message)   printf message
+    #else
+        #define LogError(message)
+    #endif
 #endif
 
 #ifndef LogWarn
-    #define LogWarn(message)    printf message
+    #if LIBRARY_LOG_LEVEL >= LOG_WARN
+        #define LogWarn(message)    printf message
+    #else
+        #define LogWarn(message)
+    #endif
 #endif
 
 #ifndef LogInfo
-    #define LogInfo(message)    printf message
+    #if LIBRARY_LOG_LEVEL >= LOG_INFO
+        #define LogInfo(message)    printf message
+    #else
+        #define LogInfo(message)
+    #endif
 #endif
 
 #ifndef LogDebug
-    #define LogDebug(message)   printf message
+    #if LIBRARY_LOG_LEVEL >= LOG_DEBUG
+        #define LogDebug(message)   printf message
+    #else
+        #define LogDebug(message)
+    #endif
 #endif
 
 /**
