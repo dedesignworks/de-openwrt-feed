@@ -1,4 +1,4 @@
-diff --git a/src/drivers/display/drm/lv_linux_drm.c b/src/drivers/display/drm/lv_linux_drm.c
+diff --git a/lvgl/src/drivers/display/drm/lv_linux_drm.c b/lvgl/src/drivers/display/drm/lv_linux_drm.c
 index 2a6ca6ed0..f1590542e 100644
 --- a/src/drivers/display/drm/lv_linux_drm.c
 +++ b/src/drivers/display/drm/lv_linux_drm.c
