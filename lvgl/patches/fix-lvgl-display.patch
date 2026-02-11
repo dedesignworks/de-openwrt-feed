@@ -1,0 +1,13 @@
+diff --git a/src/drivers/display/drm/lv_linux_drm.c b/src/drivers/display/drm/lv_linux_drm.c
+index 2a6ca6ed0..f1590542e 100644
+--- a/src/drivers/display/drm/lv_linux_drm.c
++++ b/src/drivers/display/drm/lv_linux_drm.c
+@@ -145,7 +145,7 @@ lv_display_t * lv_linux_drm_create(void)
+ 
+     drm_dev->fd = -1;
+ 
+-    disp = lv_display_create(800, 480);
++    disp = lv_display_create(1024, 600);
+     if(disp == NULL) {
+         lv_free(drm_dev);
+         return NULL;
