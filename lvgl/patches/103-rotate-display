@@ -1,0 +1,11 @@
+diff --git a/lvgl/src/drivers/display/drm/lv_linux_drm.c b/lvgl/src/drivers/display/drm/lv_linux_drm.c
+index 2a6ca6ed0..debeb005d 100644
+--- a/lvgl/src/drivers/display/drm/lv_linux_drm.c
++++ b/lvgl/src/drivers/display/drm/lv_linux_drm.c
+@@ -481,6 +481,7 @@ static int drm_dmabuf_set_plane(drm_dev_t * drm_dev, drm_buffer_t * buf)
+     drm_add_plane_property(drm_dev, "CRTC_Y", 0);
+     drm_add_plane_property(drm_dev, "CRTC_W", drm_dev->width);
+     drm_add_plane_property(drm_dev, "CRTC_H", drm_dev->height);
++    drm_add_plane_property(drm_dev, "rotation", 4);
+ 
+     ret = drmModeAtomicCommit(drm_dev->fd, drm_dev->req, flags, drm_dev);
