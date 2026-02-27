@@ -1,12 +1,12 @@
 diff --git a/lvgl/src/drivers/display/drm/lv_linux_drm.c b/lvgl/src/drivers/display/drm/lv_linux_drm.c
-index 29e0168d9..1d0d5e92e 100644
+index 29e0168d9..5a9e93756 100644
 --- a/lvgl/src/drivers/display/drm/lv_linux_drm.c
 +++ b/lvgl/src/drivers/display/drm/lv_linux_drm.c
 @@ -7,6 +7,7 @@
   *      INCLUDES
   *********************/
  #include "lv_linux_drm.h"
-+#include "lv_draw_sw.h"
++#include "../../../draw/sw/lv_draw_sw.h"
  #if LV_USE_LINUX_DRM
  
  #include <errno.h>
