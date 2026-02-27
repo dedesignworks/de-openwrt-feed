@@ -6,6 +6,6 @@ index 2a6ca6ed0..debeb005d 100644
      drm_add_plane_property(drm_dev, "CRTC_Y", 0);
      drm_add_plane_property(drm_dev, "CRTC_W", drm_dev->width);
      drm_add_plane_property(drm_dev, "CRTC_H", drm_dev->height);
-+    drm_add_plane_property(drm_dev, "rotation", 4);
++    drm_add_plane_property(drm_dev, "rotation", 2);
  
      ret = drmModeAtomicCommit(drm_dev->fd, drm_dev->req, flags, drm_dev);
