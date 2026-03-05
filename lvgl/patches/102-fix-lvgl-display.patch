@@ -15,7 +15,7 @@ index 29e0168d9..5a9e93756 100644
      if(drm_dev == NULL) return NULL;
 
 -    lv_display_t * disp = lv_display_create(800, 480);
-+    lv_display_t * disp = lv_display_create(1024, 600);
++    lv_display_t * disp = lv_display_create(800, 480);
      if(disp == NULL) {
          lv_free(drm_dev);
          return NULL;
