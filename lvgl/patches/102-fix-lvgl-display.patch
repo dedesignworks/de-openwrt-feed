@@ -34,7 +34,7 @@ index 29e0168d9..5a9e93756 100644
 +                              drm_dev->width, drm_dev->height,
 +                              drm_dev->drm_bufs[idx].pitch,
 +                              drm_dev->drm_bufs[dst_idx].pitch,
-+                              LV_DISPLAY_ROTATION_180,
++                              LV_DISPLAY_ROTATION_90,
 +                              lv_display_get_color_format(disp));
 +
              /*Request buffer swap*/
