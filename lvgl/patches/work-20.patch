@@ -15,7 +15,7 @@ index 29e0168d9..752c291a5 100644
  
          drm_add_crtc_property(drm_dev, "MODE_ID", drm_dev->blob_id);
          drm_add_crtc_property(drm_dev, "ACTIVE", 1);
-+        drm_add_crtc_property(drm_dev, "ROTATION", 2);]
++        drm_add_crtc_property(drm_dev, "ROTATION", 2);
  
          flags |= DRM_MODE_ATOMIC_ALLOW_MODESET;
  
