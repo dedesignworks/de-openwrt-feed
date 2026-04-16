@@ -45,16 +45,17 @@ define Build/Configure
 	echo 'install(TARGETS sigv4 DESTINATION "$$$${CSDK_LIB_INSTALL_PATH}")' >> $(PKG_BUILD_DIR)/CMakeLists.txt
 	echo 'install(DIRECTORY "$$$${CMAKE_CURRENT_LIST_DIR}/libraries/aws/sigv4-for-aws-iot-embedded-sdk/source/include/" DESTINATION "$$$${CSDK_HEADER_INSTALL_PATH}")' >> $(PKG_BUILD_DIR)/CMakeLists.txt
 	echo 'install(FILES sigv4_config/sigv4_config.h DESTINATION "$$$${CSDK_HEADER_INSTALL_PATH}")' >> $(PKG_BUILD_DIR)/CMakeLists.txt
+	echo 'install(TARGETS tinycbor mbedtls DESTINATION "$$$${CSDK_LIB_INSTALL_PATH}")' >> $(PKG_BUILD_DIR)/libraries/3rdparty/CMakeLists.txt
 	$(call Build/Configure/Default)
 endef
 
 define Package/aws-iot-device/install
-	$(INSTALL_DIR) $(1)/usr/lib/aws
-	$(CP) $(PKG_INSTALL_DIR)/usr/lib/aws/lib*.so* $(1)/usr/lib/aws/
+	$(INSTALL_DIR) $(1)/usr/lib
+	$(CP) $(PKG_INSTALL_DIR)/usr/lib/lib*.so* $(1)/usr/lib/
 endef
 
 define Build/InstallDev
-	$(INSTALL_DIR) $(1)/usr/lib/aws
+	$(INSTALL_DIR) $(1)/usr/lib
 	$(INSTALL_DIR) $(1)/usr/include
 	$(CP) $(PKG_INSTALL_DIR)/* $(1)/
 endef
