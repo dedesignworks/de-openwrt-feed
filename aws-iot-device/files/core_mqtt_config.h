@@ -88,19 +88,11 @@
 /**
  * @brief Maximum number of milliseconds of RX inactivity before initiating a PINGREQ.
  *
- * Set to UINT32_MAX to disable the RX-based keep-alive trigger. coreMQTT never
- * updates MQTTContext_t.lastPacketRxTime (it remains 0 after MQTT_Init), so
- * calculateElapsedTime(now, 0) always equals the current monotonic time in ms,
- * which exceeds the default PACKET_RX_TIMEOUT_MS (30000ms) immediately after
- * ~30s of system uptime. This causes a PINGREQ to be sent on every
- * handleKeepAlive() call regardless of the configured keep_alive_interval_seconds,
- * making the effective PINGREQ interval equal to transport_receive_timeout_ms
- * rather than the intended keep-alive interval.
- *
- * With PACKET_RX_TIMEOUT_MS = UINT32_MAX the RX path never fires (would require
- * ~49.7 days of uptime), leaving the TX-based path (keepAliveIntervalSec) in
- * sole control of PINGREQ timing.
+ * coreMQTT uses this as a cap on keepAliveIntervalSec: if PACKET_RX_TIMEOUT_MS is
+ * less than the configured keep_alive_interval_seconds (converted to ms), the
+ * effective PINGREQ interval is capped to PACKET_RX_TIMEOUT_MS. Set this to at
+ * least as large as the maximum keep_alive_interval_seconds value you intend to use.
  */
-#define PACKET_RX_TIMEOUT_MS          ( 0xFFFFFFFFU )
+#define PACKET_RX_TIMEOUT_MS          ( 300000U ) /* 5 minutes */
 
 #endif /* ifndef CORE_MQTT_CONFIG_H_ */
