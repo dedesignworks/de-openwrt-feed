@@ -1,12 +1,12 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=aws-iot-device
-PKG_VERSION:=202211.00
+PKG_VERSION:=202412.00
 PKG_RELEASE:=1
 
 PKG_SOURCE_PROTO:=git
-PKG_SOURCE_URL=https://github.com/dedesignworks/aws-iot-device-sdk-embedded-C.git
-PKG_SOURCE_VERSION:=7f8551bcaa8d811c44473db7755965a5316e3a7d
+PKG_SOURCE_URL=git@github.com:aws/aws-iot-device-sdk-embedded-C.git
+PKG_SOURCE_VERSION:=202412.00
 CMAKE_INSTALL:=1
 PKG_INSTALL:=1
 
