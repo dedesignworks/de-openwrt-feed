@@ -76,6 +76,16 @@
 #define MQTT_PINGRESP_TIMEOUT_MS      ( 15000U )
 
 /**
+ * @brief Maximum number of milliseconds of TX inactivity before initiating a PINGREQ.
+ *
+ * coreMQTT uses this as a cap on keepAliveIntervalSec: if PACKET_TX_TIMEOUT_MS is
+ * less than the configured keep_alive_interval_seconds (converted to ms), the
+ * effective PINGREQ interval is capped to PACKET_TX_TIMEOUT_MS. Set this to at
+ * least as large as the maximum keep_alive_interval_seconds value you intend to use.
+ */
+#define PACKET_TX_TIMEOUT_MS          ( 300000U ) /* 5 minutes */
+
+/**
  * @brief Maximum number of milliseconds of RX inactivity before initiating a PINGREQ.
  *
  * Set to UINT32_MAX to disable the RX-based keep-alive trigger. coreMQTT never
