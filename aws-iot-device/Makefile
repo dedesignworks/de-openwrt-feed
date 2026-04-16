@@ -33,18 +33,23 @@ CMAKE_OPTIONS+= \
 	-DINSTALL_TO_SYSTEM:bool=ON \
 	-DCMAKE_SKIP_RPATH=OFF \
 	-DCMAKE_INSTALL_RPATH="/usr/lib/aws" \
-	-DBUILD_CLONE_SUBMODULES:bool=ON
+	-DBUILD_CLONE_SUBMODULES:bool=ON \
+	-DMQTT_CUSTOM_CONFIG_DIR=$(PKG_BUILD_DIR)/mqtt_config
 
 define Build/Configure
 	# Copy sigv4_config.h from files directory
 	mkdir -p $(PKG_BUILD_DIR)/sigv4_config
 	cp ./files/sigv4_config.h $(PKG_BUILD_DIR)/sigv4_config/
+	# Copy core_mqtt_config.h from files directory
+	mkdir -p $(PKG_BUILD_DIR)/mqtt_config
+	cp ./files/core_mqtt_config.h $(PKG_BUILD_DIR)/mqtt_config/
 	echo 'include(libraries/aws/sigv4-for-aws-iot-embedded-sdk/sigv4FilePaths.cmake)' >> $(PKG_BUILD_DIR)/CMakeLists.txt
 	echo 'add_library(sigv4 $$$${SIGV4_SOURCES})' >> $(PKG_BUILD_DIR)/CMakeLists.txt
 	echo 'target_include_directories(sigv4 PUBLIC $$$${SIGV4_INCLUDE_PUBLIC_DIRS} $$$${CMAKE_CURRENT_SOURCE_DIR}/sigv4_config)' >> $(PKG_BUILD_DIR)/CMakeLists.txt
 	echo 'install(TARGETS sigv4 DESTINATION "$$$${CSDK_LIB_INSTALL_PATH}")' >> $(PKG_BUILD_DIR)/CMakeLists.txt
 	echo 'install(DIRECTORY "$$$${CMAKE_CURRENT_LIST_DIR}/libraries/aws/sigv4-for-aws-iot-embedded-sdk/source/include/" DESTINATION "$$$${CSDK_HEADER_INSTALL_PATH}")' >> $(PKG_BUILD_DIR)/CMakeLists.txt
 	echo 'install(FILES sigv4_config/sigv4_config.h DESTINATION "$$$${CSDK_HEADER_INSTALL_PATH}")' >> $(PKG_BUILD_DIR)/CMakeLists.txt
+	echo 'target_include_directories(aws_iot_mqtt BEFORE PUBLIC $$$${CMAKE_CURRENT_SOURCE_DIR}/mqtt_config $$$${CMAKE_CURRENT_SOURCE_DIR}/demos/logging-stack)' >> $(PKG_BUILD_DIR)/CMakeLists.txt
 	echo 'install(TARGETS tinycbor mbedtls DESTINATION "$$$${CSDK_LIB_INSTALL_PATH}")' >> $(PKG_BUILD_DIR)/libraries/3rdparty/CMakeLists.txt
 	$(call Build/Configure/Default)
 endef
