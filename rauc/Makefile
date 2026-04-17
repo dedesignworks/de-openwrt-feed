@@ -21,7 +21,7 @@ define Package/rauc
 	SECTION:=utils
 	CATEGORY:=Base system
 	TITLE:=Robust Auto-Update Controller
-	DEPENDS:=+glib2 +libnl +libopenssl +libcurl +libiconv-full +libfdisk +json-glib
+	DEPENDS:=+glib2 +libnl +libopenssl +libmbedtls +libcurl +libiconv-full +libfdisk +json-glib
 endef
 
 define Package/rauc/description
